@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="col">
+            <h1>Register</h1>
+            {% with messages = get_flashed_messages(category_filter=["register"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+            <p style="color:red">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/register" method="post">
+                <p>First Name:</p>
+                <input type="text" name="first_name">
+                <p>Last Name:</p>
+                <input type="text" name="last_name">
+                <p>Email:</p>
+                <input type="email" name="email">
+                <p>Password:</p>
+                <input type="password" name="password">
+                <p>Confirm Password:</p>
+                <input type="password" name="password_confirm">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <div class="col">
+            <h1>Login</h1>
+            {% with messages = get_flashed_messages(category_filter=["login"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+            <p style="color:red">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/login" method="post">
+                <p>Email:</p>
+                <input type="email" name="email">
+                <p>Password:</p>
+                <input type="password" name="password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
