@@ -1,10 +1,8 @@
 from flask_app import app
 from flask import render_template,redirect,request,session,flash
-from flask_app.models.recipe import Recipe
 # from flask_app.models.[name of class file] import [class name]
 from flask_app.models.user import User
-from flask_app.models.validate import Validate
-from flask_app.models.recipe import Recipe
+from flask_app.models import car
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 # put your app.route logic here:
@@ -22,7 +20,7 @@ def register():
         "email":request.form["email"],
         "password":request.form["password"]
     }
-    validate = Validate.registration(data)
+    validate = User.validate_user(data)
     if not validate:
         return redirect("/")
 
@@ -68,10 +66,19 @@ def dashboard():
             "id":session["user_id"]
         }
         user = User.get_user(data)
-        recipes = Recipe.get_all_recipes(data)
-        return render_template("dashboard.html",user=user,recipes=recipes)
+        cars = car.Car.get_all_cars()
+        
+        return render_template("dashboard.html",user=user,cars=cars)
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
+
+@app.route('/view_user/<int:id>')
+def view_user(id):
+    data = {
+        "id":id
+    }
+    user = User.get_user(data)
+    return render_template("view_user.html",user=user)

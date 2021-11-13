@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                Price: 
+            </td>
+            <td>
+                {{car.price}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Model: 
+            </td>
+            <td>
+                {{car.model}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Make: 
+            </td>
+            <td>
+                {{car.make}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Year: 
+            </td>
+            <td>
+                {{car.year}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description: 
+            </td>
+            <td>
+                {{car.description}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Seller:
+            </td>
+            <td>
+                {{car.owner.first_name}} {{car.owner.last_name}}
+            </td>
+        </tr>
+    </table>
+    <button><a href="/buy_car/{{car.id}}">Purchase</a></button>
+</body>
+</html>

@@ -4,29 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{user.first_name}}'s Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome {{user.first_name}} {{user.last_name}}</h1>
-    <br>
-    <button><a href="/create_recipe">Create</a></button>
-    <button><a href="/logout">Logout</a></button>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Under 30 Minutes?</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        {% for recipe in recipes %}
-        <tr>
-            <td>{{recipe.name}}</td>
-            <td>{% if recipe.under_thirty == 1 %}Yes{% else %}No{% endif %}</td>
-            <td><a href="/recipe/{{recipe.id}}">view instructions</a> | <a href="/edit_recipe/{{recipe.id}}">edit</a> | <a href="/recipe_delete/{{recipe.id}}">delete</a></td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="navbar">
+        <div class="navbar-title">
+            <h1>Welcome to Car Dealz</h1>
+        </div>
+        <button><a href="/logout">Logout</a></button>
+    </div>
+    <div class="container">
+        <div>
+            <h1>Cars for Sale</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Seller</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                {% for car in cars %}
+                <tr>
+                    <td>
+                        {{car.model}}
+                    </td>
+                    <td>
+                        {{car.year}}
+                    </td>
+                    <td>
+                        <a href="/view_user/{{car.seller_id}}">{{car.owner.first_name}} {{car.owner.last_name}}</a>
+                    </td>
+                    <td>
+                        {% if car.sold == 1 %}
+                        <p>SOLD</p>
+                        {% elif car.seller_id == user.id %}
+                        <a href="/edit_car/{{car.id}}">Edit</a> | <a href="/delete_car/{{car.id}}">Delete</a>
+                        {% else %}
+                        <a href="/view_car/{{car.id}}">View</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button><a href="/add_car">Add a Car</a></button>
+        </div>
+    </div>
 </body>
 </html>
